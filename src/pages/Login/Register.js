@@ -5,16 +5,24 @@ import { Link } from 'react-router-dom';
 
 const Register = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    // const navigate = useNavigate();
-
-
-
-
-
     const onSubmit = async data => {
-
-        console.log('update done');
+        const user = {
+            name: data.name,
+            email: data.email,
+            pass: data.password
+        }
+        fetch(`http://localhost:5000/registration`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }).then(res => res.json().then(data => {
+            console.log(data);
+        }))
     }
+
+
     return (
         <div className='flex h-screen justify-center items-center'>
             <div className="card w-96 bg-base-100 shadow-xl border-2 border-solid border-black">
