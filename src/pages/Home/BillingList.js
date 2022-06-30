@@ -9,18 +9,16 @@ const BillingList = () => {
     const [deleteBill, setDeleteBill] = useState(null)
     const { data: billings, isLoading, refetch } = useQuery('billings', () => fetch('https://cryptic-springs-92212.herokuapp.com/billingList', {
         method: 'GET',
-        // headers: {
-        //     authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        // },
 
     }).then(req => req.json()));
+    console.log(billings);
     useEffect(() => {
         let addPaidAmount = [];
-        addPaidAmount = billings.map((sum, index) => {
+        addPaidAmount = billings?.map((sum, index) => {
             return parseFloat(sum.paidAmount);
         })
         let tp = 0;
-        addPaidAmount.forEach((tt) => {
+        addPaidAmount?.forEach((tt) => {
             tp += tt;
         })
         //  setTotal(addPaidAmount);
@@ -28,11 +26,9 @@ const BillingList = () => {
         console.log(billings, 'see out of data');
 
         setTotal(tp);
-    }, []);
-    console.log(total);
+    }, [billings]);
 
 
-    console.log(billings, "data")
     if (isLoading) {
         return <p>Loading...</p>
     }
