@@ -1,0 +1,19 @@
+.navBar {
+    background-color: transparent;
+    color: blue;
+    width: full;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+
+}
+
+.navBar.active {
+    background: linear-gradient(90deg, rgb(72, 2, 194)0%, rgb(73, 9, 247)100%);
+    color: white;
+}
