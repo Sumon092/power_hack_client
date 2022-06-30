@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Bill from './Bill';
+import DeleteModal from './DeleteModal';
 
 const BillingList = () => {
+    const [deleteBill, setDeleteBill] = useState(null)
     const { data: billings, isLoading, refetch } = useQuery('billings', () => fetch('https://cryptic-springs-92212.herokuapp.com/billingList', {
         method: 'GET',
         // headers: {
@@ -40,9 +42,22 @@ const BillingList = () => {
                         <tbody>
 
                             {
-                                billings.map(bill => <Bill key={bill._id} bill={bill}></Bill>)
+                                billings.map(bill =>
+                                    <Bill
+                                        key={bill._id}
+                                        bill={bill}
+                                        setDeleteBill={setDeleteBill}
+                                    >
+                                    </Bill>)
                             }
                         </tbody>
+                        {
+                            deleteBill && <DeleteModal
+                                deleteBill={deleteBill}
+                                setDeleteBill={setDeleteBill}
+                                refetch={refetch}
+                            ></DeleteModal>
+                        }
 
                     </table>
                 </div>
