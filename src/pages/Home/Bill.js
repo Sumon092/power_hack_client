@@ -11,7 +11,7 @@ const Bill = ({ bill, setDeleteBill }) => {
             <td>{paidAmount}</td>
 
             <td><button className='btn btn-xs btn-info text-white'>Edit</button>||<span class="card-actions justify-end">
-                <label onClick={() => setDeleteBill(bill)} for="my-modal-6" class="btn btn-error text-white btn-xs">Delete</label>
+                <label onClick={() => setDeleteBill(bill)} for="delete-modal" class="btn btn-error text-white btn-xs">Delete</label>
 
             </span></td>
         </tr>

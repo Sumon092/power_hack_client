@@ -28,7 +28,7 @@ const DeleteModal = ({ deleteBill, setDeleteBill, refetch }) => {
     }
     return (
         <div>
-            <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+            <input type="checkbox" id="delete-modal" class="modal-toggle" />
             <div class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">{deleteBill.fullName}</h3>
@@ -36,7 +36,7 @@ const DeleteModal = ({ deleteBill, setDeleteBill, refetch }) => {
                     <p class="py-4">If you delete this you will lost this product</p>
                     <div class="modal-action">
                         <button onClick={() => handleDelete(deleteBill._id)} class="btn btn-error btn-sm text-white">Delete</button>
-                        <label for="my-modal-6" class="btn btn-sm btn-primary">Cancel</label>
+                        <label for="delete-modal" class="btn btn-sm btn-primary">Cancel</label>
                     </div>
                 </div>
             </div>
