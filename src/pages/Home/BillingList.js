@@ -15,6 +15,10 @@ const BillingList = () => {
 
     }).then(req => req.json()));
     // console.log(billings);
+    const search = (data) => {
+        return data.filter(billing => billing.fullName?.toLowerCase().includes(query) || billing.email?.toLowerCase().includes(query) || billing.phone?.toLowerCase().includes(query));
+    }
+
     useEffect(() => {
         let addPaidAmount = [];
         addPaidAmount = billings?.map((sum, index) => {
@@ -25,11 +29,12 @@ const BillingList = () => {
             tp += tt;
         })
         //  setTotal(addPaidAmount);
-        console.log('Paid amount', tp);
-        console.log(billings, 'see out of data');
+        // console.log('Paid amount', tp);
+        // console.log(billings, 'see out of data');
 
         setTotal(tp);
     }, [billings]);
+
 
 
     if (isLoading) {
@@ -40,7 +45,7 @@ const BillingList = () => {
 
             <div>
                 <div className='px-24 flex justify-between'>
-                    <p>Paid amount: {total}</p>
+                    <p className='text-3xl font-bold'>Paid amount: {total}</p>
 
                     <p className='mb-5'>
                         <label className='text-xl'>Search Bill</label>
@@ -77,7 +82,7 @@ const BillingList = () => {
                             <tbody>
 
                                 {
-                                    billings.map(bill =>
+                                    billings.filter((bill) => bill.email?.toLowerCase().includes(query) || bill.name?.toLowerCase().includes(query) || bill.phone?.toLowerCase().includes(query)).map(bill =>
                                         <Bill
                                             key={bill._id}
                                             bill={bill}
