@@ -14,7 +14,7 @@ const BillingList = () => {
         method: 'GET',
 
     }).then(req => req.json()));
-    console.log(billings);
+    // console.log(billings);
     useEffect(() => {
         let addPaidAmount = [];
         addPaidAmount = billings?.map((sum, index) => {

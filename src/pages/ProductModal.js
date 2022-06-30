@@ -1,11 +1,40 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 
 const ProductModal = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log('data added');
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const onSubmit = async data => {
+        const billing = {
+            fullName: data.fullName,
+            email: data.email,
+            phone: data.phone,
+            pAmount: data.pAmount
+        }
+
+        fetch('http://localhost:5000/add-billing', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(billing)
+        })
+            .then(res => res.json())
+            .then(insert => {
+                if (insert.insertedId) {
+                    toast.success('bill added successfully');
+                    reset()
+                }
+                else {
+                    toast.error('Failed to add a bill')
+                }
+                // console.log('doctor', insert);
+            })
+
+
+        console.log(data);
     }
     return (
         <div className='flex justify-center items-center flex-col'>
