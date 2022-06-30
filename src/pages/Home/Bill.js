@@ -10,7 +10,7 @@ const Bill = ({ bill }) => {
             <td>{phone}</td>
             <td>{paidAmount}</td>
 
-            <td><button className='btn btn-xs'>Edit</button>||<button className='btn btn-xs'>Delete</button></td>
+            <td><button className='btn btn-xs btn-info text-white'>Edit</button>||<button className='btn btn-xs btn-error'>Delete</button></td>
         </tr>
     );
 };
