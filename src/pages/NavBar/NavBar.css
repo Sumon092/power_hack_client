@@ -15,5 +15,5 @@
 
 .navBar.active {
     background: linear-gradient(90deg, rgb(72, 2, 194)0%, rgb(73, 9, 247)100%);
-    color: white;
+    color: black;
 }

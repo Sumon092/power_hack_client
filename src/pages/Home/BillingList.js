@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Bill from './Bill';
 import DeleteModal from './DeleteModal';
 
 const BillingList = () => {
+    const [query, setQuery] = useState('')
+    const [total, setTotal] = useState(0)
     const [deleteBill, setDeleteBill] = useState(null)
     const { data: billings, isLoading, refetch } = useQuery('billings', () => fetch('https://cryptic-springs-92212.herokuapp.com/billingList', {
         method: 'GET',
@@ -12,16 +14,43 @@ const BillingList = () => {
         // },
 
     }).then(req => req.json()));
+    useEffect(() => {
+        let addPaidAmount = [];
+        addPaidAmount = billings.map((sum, index) => {
+            return parseFloat(sum.paidAmount);
+        })
+        let tp = 0;
+        addPaidAmount.forEach((tt) => {
+            tp += tt;
+        })
+        //  setTotal(addPaidAmount);
+        console.log('Paid amount', tp);
+        console.log(billings, 'see out of data');
+
+        setTotal(tp);
+    }, []);
+    console.log(total);
+
+
+    console.log(billings, "data")
     if (isLoading) {
         return <p>Loading...</p>
     }
     return (
         <>
             <div className='px-24 flex justify-between'>
+                <p>Paid amount: {total}</p>
 
                 <p className='mb-5'>
                     <label className='text-xl'>Search Bill</label>
-                    <input className='ml-5 p-3' type="search" name="search" placeholder='search' id="" />
+                    <input
+                        className='ml-5 p-3'
+                        type="search"
+                        name="search"
+                        placeholder='search'
+                        id=""
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
                 </p>
 
                 <p className='text-right mr-0 mb-5'><button className='btn btn-success'>Add New Bill</button></p>

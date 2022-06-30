@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate()
+    const location = useLocation();
     const { register, formState: { errors }, handleSubmit } = useForm();
     // let from = location.state?.from?.pathname || "/";
     const handleOnClick = async (data) => {
