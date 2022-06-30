@@ -1,9 +1,10 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Register = () => {
+    const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = async data => {
         const user = {
@@ -18,7 +19,9 @@ const Register = () => {
             },
             body: JSON.stringify(user)
         }).then(res => res.json().then(data => {
-            console.log(data);
+            if (data.acknowledged === true) {
+                navigate('/home');
+            };
         }))
     }
 

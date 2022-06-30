@@ -1,31 +1,20 @@
 import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 
 
 const Login = () => {
-
+    const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
     // let from = location.state?.from?.pathname || "/";
     const handleOnClick = async (data) => {
         const user = {
             email: data.email,
             pass: data.password
-
-
         }
-
-        // console.log(user.email, " eamil data")
-        // fetch(`http://localhost:5000/login`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(user)
-        // }).then(res => res.json()).then(data => {
-        //     console.log(data);
-        // })
         fetch(`http://localhost:5000/login`, {
             method: 'POST',
             headers: {
@@ -34,6 +23,10 @@ const Login = () => {
             body: JSON.stringify(user)
         }).then(res => res.json()).then(data => {
             console.log(data);
+            if (data.status === 200) {
+                toast('Login Successful')
+                navigate('/home')
+            }
         })
 
 
