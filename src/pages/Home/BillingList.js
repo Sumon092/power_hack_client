@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Bill from './Bill';
 import DeleteModal from './DeleteModal';
+import ReactPaginate from 'react-paginate';
 
 
 
@@ -10,14 +11,18 @@ const BillingList = () => {
     const [query, setQuery] = useState('')
     const [total, setTotal] = useState(0)
     const [deleteBill, setDeleteBill] = useState(null)
+
+    // const [currentItems, setCurrentItems] = useState(null);
+    // const [pageCount, setPageCount] = useState(0);
+    // const [itemOffset, setItemOffset] = useState(0);
+
+
+
     const { data: billings, isLoading, refetch } = useQuery('billings', () => fetch('https://cryptic-springs-92212.herokuapp.com/billingList', {
         method: 'GET',
-
     }).then(req => req.json()));
-    // console.log(billings);
-    const search = (data) => {
-        return data.filter(billing => billing.fullName?.toLowerCase().includes(query) || billing.email?.toLowerCase().includes(query) || billing.phone?.toLowerCase().includes(query));
-    }
+
+
 
     useEffect(() => {
         let addPaidAmount = [];
@@ -40,8 +45,15 @@ const BillingList = () => {
     if (isLoading) {
         return <p>Loading...</p>
     }
+    const handlePageClick = (data) => {
+        console.log(data.selected);
+    }
+
     return (
         <>
+
+            {/* <Items currentItems={currentItems} /> */}
+
 
             <div>
                 <div className='px-24 flex justify-between'>
@@ -101,9 +113,32 @@ const BillingList = () => {
 
 
                         </table>
+
+
                     </div>
+
                 </div>
+
             </div>
+            <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                pageCount={15}
+                marginPagesDisplayed={3}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                containerClassName={'btn-group justify-center'}
+                pageClassName={'btn-group'}
+                pageLinkClassName={'btn'}
+                previousLinkClassName={'btn'}
+                nextClassName={'btn-group'}
+                nextLinkClassName={'btn'}
+                breakClassName={'btn-group'}
+                breakLinkClassName={'btn'}
+                activeClassName={'btn btn-active'}
+            />
         </>
     );
 };
